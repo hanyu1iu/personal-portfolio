@@ -1,5 +1,30 @@
 'use strict';
 
+// script.js
+import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
+
+document.addEventListener('DOMContentLoaded', function () {
+  var loadingTask = pdfjsLib.getDocument("./assets/Yuki Liu_Resume.pdf");
+  loadingTask.promise.then(function(pdf) {
+    pdf.getPage(1).then(function(page) {
+      var scale = 1.5; 
+      var viewport = page.getViewport({ scale: scale });
+      var canvas = document.getElementById('pdfViewer');
+      var context = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      // Render the page
+      var renderContext = {
+        canvasContext: context,
+        viewport: viewport,
+      };
+      page.render(renderContext);
+    });
+  });
+});
 
 
 // element toggle function
@@ -157,3 +182,4 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+

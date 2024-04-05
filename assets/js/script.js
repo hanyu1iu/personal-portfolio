@@ -104,8 +104,10 @@ for (let i = 0; i < selectItems.length; i++) {
 const filterItems = document.querySelectorAll("[data-filter-item]");
 
 const filterFunc = function (selectedValue) {
+  selectedValue = selectedValue.toLowerCase();
 
   for (let i = 0; i < filterItems.length; i++) {
+    let itemCategory = filterItems[i].dataset.category.toLowerCase();
 
     if (selectedValue === "all") {
       filterItems[i].classList.add("active");
